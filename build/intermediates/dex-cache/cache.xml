@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="C:\Users\MORGAN\.android\build-cache\0c009ebc1ce49f5c1a1fa7a676ec741ebd0e9b2d\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="47471eb19df288158b00b8d9cfa41bce7373f5cc">
+        <dex dex="C:\Users\MORGAN\AndroidStudioProjects\CatalogManager2\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_1ccfcbf90453022d2227b4c7218b4393e7a1adf0\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\MORGAN\.android\build-cache\811f71d4b961cc5c80bffec3b7ea0c9fc6d9d3ef\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="2e92aa0163544a804a0b34f169ca61801770839a">
+        <dex dex="C:\Users\MORGAN\AndroidStudioProjects\CatalogManager2\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_a9e15795d978139291fee0981536aa5d6fe4d05e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\MORGAN\.android\build-cache\59a8d015fab611d706a2f1e4959074adaf71e5a4\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="fcd01fd11233459f546c437ec927e9b61bf7caf1">
+        <dex dex="C:\Users\MORGAN\AndroidStudioProjects\CatalogManager2\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_f01946bf8eedb991cfcdb347592d2ecd176e987d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\MORGAN\.android\build-cache\feba8da69c4f6421b7d1572c13af5ab7f6f97fd8\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="18d31838aa4fcc768a8a0516e22cc13b94655d89">
+        <dex dex="C:\Users\MORGAN\AndroidStudioProjects\CatalogManager2\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_27814d6d398073df96eb755178bd171e1d6ff593\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\MORGAN\.android\build-cache\8aa6fb10b94dccd5200ee9e6640c691720529bb9\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="88246166d5afb106f532f6e6deae683c66b42c89">
+        <dex dex="C:\Users\MORGAN\AndroidStudioProjects\CatalogManager2\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_9906414b7c4040238df548b5ddda1c56f0adc37d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\MORGAN\.android\build-cache\5915fa67d47eade3d7954b0215a3e4e6ca753233\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="952944218ecedea1554a513dec0c14d570642843">
+        <dex dex="C:\Users\MORGAN\AndroidStudioProjects\CatalogManager2\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_bd32950a90d5cf2a208b15090290c9d888d655e2\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\MORGAN\AndroidStudioProjects\CatalogManager2\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="C:\Users\MORGAN\AndroidStudioProjects\CatalogManager2\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_f87c826d31dafd1092523c18f55051ae981adaea\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\MORGAN\.android\build-cache\87484ae16bea91940ecf15e3ec1921f18d5a67bc\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="cddcd0fb93bc70e27325f2f715b2710332004ebb">
+        <dex dex="C:\Users\MORGAN\AndroidStudioProjects\CatalogManager2\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_1d4a29205b43100c4e792376949cf75507b46f28\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\MORGAN\.android\build-cache\d6a241cd73e426b92b4e466476be357402456345\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\Users\MORGAN\AndroidStudioProjects\CatalogManager2\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_034a919cd0437a64b947a7671613283897f9f6e5\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\MORGAN\AndroidStudioProjects\CatalogManager2\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="f4263b914565e5233e8e97b73ceade470b57f4fd">
+        <dex dex="C:\Users\MORGAN\AndroidStudioProjects\CatalogManager2\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_620c82643f733cf75c7963b55484c1fe45854d55\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\SDK\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\26.0.0-alpha1\support-annotations-26.0.0-alpha1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="023ee503b631f69511e335a061ea008f8da60f40">
+        <dex dex="C:\Users\MORGAN\AndroidStudioProjects\CatalogManager2\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-26.0.0-alpha1_889c9d05a685276ec6ec8bbdd647bb1c04fd0456\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\MORGAN\.android\build-cache\8002525606137deedc18f72ad87c96e7ef6cb788\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="6a022bf00ccd0948a8180c505e8e458bbddd43a6">
+        <dex dex="C:\Users\MORGAN\AndroidStudioProjects\CatalogManager2\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_ded397922e845f6645bfd87d71ddb8a26205b6c4\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\MORGAN\.android\build-cache\ce812b494af4e53441e5e73f59cf6e31c39e9cf9\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="9935891f23923f39d002087085d9696568a9f657">
+        <dex dex="C:\Users\MORGAN\AndroidStudioProjects\CatalogManager2\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_9c133467e16418ac203c274e2851b64632115b4e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\MORGAN\.android\build-cache\5f62682f4e488959a493161336ffc984924ab467\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="8df0e365e40beb151bc42dee20817721a6cab7b0">
+        <dex dex="C:\Users\MORGAN\AndroidStudioProjects\CatalogManager2\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_c2f19263b3035d739ec5ff8e5111bb4321487a21\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\MORGAN\.android\build-cache\7387540fb5727d7c9805ed8a06f0631712aa1767\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="c4f45092eee6cdf1a5dbd597b2b6819be652ce2e">
+        <dex dex="C:\Users\MORGAN\AndroidStudioProjects\CatalogManager2\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_eda1b44475f247ef183d47191fd92c818bfe46fd\classes.dex" />
+    </item>
+
+</items>
