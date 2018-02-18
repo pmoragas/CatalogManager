@@ -6,7 +6,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.icu.text.SimpleDateFormat;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -21,8 +24,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -216,12 +221,21 @@ public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
+
     public void createMoviment(final int _id, final String tipus) {
 
         Cursor cursorProducte = bd.getProducte(_id);
 
-        final Date currentTime = Calendar.getInstance().getTime();
+        /*Calendar c = Calendar.getInstance();
+        //System.out.println("Current time => "+c.getTime());
+        SimpleDateFormat df = new SimpleDateFormat("dd-mm-yyyy ss:mm:HH");
+        String formattedDate = df.format(c.getTime());
+
+        final String diatext = formattedDate;*/
+
+        final Date currentTime = Calendar.getInstance(Locale.getDefault()).getTime();
         final String diatext = currentTime.toString();
+
         String codi_producte_curs = "ERROR";
         Double stockActual_curs = 9999999.0;
 
