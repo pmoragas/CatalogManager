@@ -26,7 +26,13 @@
         <activity
             android:name=".MovementsActivity"
             android:label="@string/title_activity_movements"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".MainActivity" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="MainActivity" />></activity>
     </application>
 
 </manifest>
