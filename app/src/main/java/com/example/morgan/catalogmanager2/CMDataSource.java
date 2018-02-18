@@ -18,7 +18,18 @@ public class CMDataSource {
     public static final String product_Descripcio = "descripcio";
     public static final String product_PVP = "PVP";
     public static final String product_Stock = "stock";
-    public static final String[] table_COLUMNS = { product_ID, product_CodiArticle, product_Descripcio, product_PVP,product_Stock};
+    public static final String[] PRODUCTES_COLUMNS = { product_ID, product_CodiArticle, product_Descripcio, product_PVP,product_Stock};
+
+    public static final String table_MOVIMENTS = "Moviments";
+    public static final String moviment_ID = "_id";
+    public static final String moviment_producte_id = "producte_id";
+    public static final String moviment_CodiArticle = "codi_article";
+    public static final String moviment_dia = "dia";
+    public static final String moviment_quantitat = "quantitat";
+    public static final String moviment_tipus = "tipus";
+    public static final String[] MOVIMENTS_COLUMNS = { moviment_ID, moviment_producte_id, moviment_CodiArticle, moviment_dia,moviment_quantitat,moviment_tipus};
+
+
 
     private CMSQLiteHelper dbHelper;
     private SQLiteDatabase dbW, dbR;
@@ -49,20 +60,36 @@ public class CMDataSource {
     /**************CURSORS**********/
 
     public Cursor ProductList() {
-        // Retorem totes les tasques
-        return dbR.query(table_PRODUCTES, table_COLUMNS,
+        // Retornem tots els productes
+        return dbR.query(table_PRODUCTES, PRODUCTES_COLUMNS,
                 null, null,
                 null, null, product_ID);
     }
 
-    public Cursor producte(long id) {
+    public Cursor MovimentList() {
+        // Retornem tots els moviments
+        return dbR.query(table_MOVIMENTS, MOVIMENTS_COLUMNS,
+                null, null,
+                null, null, moviment_ID);
+    }
+
+
+    public Cursor getProducte(long id) {
         // Retorna un cursor només amb el id indicat
-        // Retornem les tasques que el camp DONE = 1
-        return dbR.query(table_PRODUCTES, table_COLUMNS,
+        return dbR.query(table_PRODUCTES, PRODUCTES_COLUMNS,
                 product_ID + "=?", new String[]{String.valueOf(id)},
                 null, null, null);
 
     }
+
+    public Cursor moviment(long id) {
+        // Retorna un cursor només amb el id indicat
+        return dbR.query(table_MOVIMENTS, MOVIMENTS_COLUMNS,
+                moviment_ID + "=?", new String[]{String.valueOf(id)},
+                null, null, null);
+
+    }
+
 
     /**************DML****************/
 
@@ -87,9 +114,29 @@ public class CMDataSource {
         dbW.update(table_PRODUCTES,values, product_ID + " = ?", new String[] { String.valueOf(id) });
     }
 
+    public void updateProducteStock(long id, Double stock) {
+        // Modifiquem els valors del producte amb clau primària "id"
+        ContentValues values = new ContentValues();
+        values.put(product_Stock,stock);
+
+        dbW.update(table_PRODUCTES,values, product_ID + " = ?", new String[] { String.valueOf(id) });
+    }
+
     public void deleteProducte(long id) {
         // Eliminem el producte amb clau primària "id"
         dbW.delete(table_PRODUCTES,product_ID + " = ?", new String[] { String.valueOf(id) });
+    }
+
+    public long addMoviment(int producte_id, String codi_article, String dia, int quantitat, String tipus) {
+        // Creem un nou moviment i retornem l'id creat per si el necessiten
+        ContentValues values = new ContentValues();
+        values.put(moviment_producte_id, producte_id);
+        values.put(moviment_CodiArticle, codi_article);
+        values.put(moviment_dia, dia);
+        values.put(moviment_quantitat, quantitat);
+        values.put(moviment_tipus, tipus);
+
+        return dbW.insert(table_MOVIMENTS,null,values);
     }
 
 }

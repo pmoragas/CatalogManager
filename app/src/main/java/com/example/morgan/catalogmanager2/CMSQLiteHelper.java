@@ -41,10 +41,10 @@ public class CMSQLiteHelper extends SQLiteOpenHelper {
         // SQL statement to create Productes table
         String CREATE_MOVIMENTS_TABLE = "CREATE TABLE Moviments ( " +
                 "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "producte_id INTEGER NOT NULL UNIQUE, " +
-                "codi_article_producte TEXT NOT NULL, " +
+                "producte_id INTEGER NOT NULL, " +
+                "codi_article TEXT NOT NULL, " +
                 "dia TEXT NOT NULL, " +
-                "quantitat INTEGER NOT NULL, " +
+                "quantitat REAL NOT NULL, " +
                 "tipus TEXT NOT NULL, " +
                 "FOREIGN KEY(producte_id) REFERENCES Productes(_id))";
 
@@ -59,10 +59,11 @@ public class CMSQLiteHelper extends SQLiteOpenHelper {
             // SQL statement to create Productes table
             String CREATE_MOVIMENTS_TABLE = "CREATE TABLE Moviments ( " +
                     "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    "producte_id INTEGER NOT NULL UNIQUE, " +
-                    "dia text NOT NULL, " +
-                    "quantitat INTEGER, " +
-                    "tipus TEXT, " +
+                    "producte_id INTEGER NOT NULL, " +
+                    "codi_article TEXT NOT NULL, " +
+                    "dia TEXT NOT NULL, " +
+                    "quantitat REAL NOT NULL, " +
+                    "tipus TEXT NOT NULL, " +
                     "FOREIGN KEY(producte_id) REFERENCES Productes(_id))";
 
             db.execSQL(CREATE_MOVIMENTS_TABLE);

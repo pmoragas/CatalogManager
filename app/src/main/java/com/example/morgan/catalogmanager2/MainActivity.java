@@ -1,26 +1,36 @@
 package com.example.morgan.catalogmanager2;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static int ACTIVITY_TASK_ADD = 1;
-    private static int ACTIVITY_TASK_UPDATE = 2;
+
+    private static int ACTIVITY_PRODUCT_ADD = 1;
+    private static int ACTIVITY_PRODUCT_UPDATE = 2;
+    private static final int ACTIVITY_MOVEMENT_ADD = 3;
+
 
     public CMDataSource bd;
     private long idActual;
@@ -46,30 +56,61 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        setTitle("Catalog Manager");
+        setTitle("Productes");
 
         bd = new CMDataSource(this);
         loadProductes();
+
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_movements:
+                Intent i = new Intent(this, MovementsActivity.class );
+                startActivity(i);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+
+
+
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == ACTIVITY_TASK_ADD) {
+        if (requestCode == ACTIVITY_PRODUCT_ADD) {
             if (resultCode == RESULT_OK) {
                 // Carreguem totes les tasques a lo bestia
-                refreshTasks();
+                refreshProducts();
             }
         }
 
-        if (requestCode == ACTIVITY_TASK_UPDATE) {
+        if (requestCode == ACTIVITY_PRODUCT_UPDATE) {
             if (resultCode == RESULT_OK) {
-                refreshTasks();
+                refreshProducts();
             }
         }
+
+
+
+
 
     }
 
-    private void refreshTasks() {
+    private void refreshProducts() {
 
         Cursor cursorProducts = null;
         cursorProducts = bd.ProductList();
@@ -130,7 +171,19 @@ public class MainActivity extends AppCompatActivity {
 
         Intent i = new Intent(this, ProductActivity.class );
         i.putExtras(bundle);
-        startActivityForResult(i,ACTIVITY_TASK_ADD);
+        startActivityForResult(i, ACTIVITY_PRODUCT_ADD);
+    }
+
+    private void addMoviment() {
+        // Cridem a l'activity del detall de la tasca enviant com a id -1
+        Bundle bundle = new Bundle();
+        bundle.putLong("id",-1);
+
+        idActual = -1;
+
+        Intent i = new Intent(this, ProductActivity.class );
+        i.putExtras(bundle);
+        startActivityForResult(i,ACTIVITY_MOVEMENT_ADD);
     }
 
     private void updateProducte(long id) {
@@ -143,7 +196,106 @@ public class MainActivity extends AppCompatActivity {
 
         Intent i = new Intent(this, ProductActivity.class );
         i.putExtras(bundle);
-        startActivityForResult(i,ACTIVITY_TASK_UPDATE);
+        startActivityForResult(i, ACTIVITY_PRODUCT_UPDATE);
+    }
+
+    public void deleteProducte(final int _id) {
+        // Pedimos confirmación
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setMessage("Desitja eliminar el producte?");
+        builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                bd.deleteProducte(_id);
+                refreshProducts();
+            }
+        });
+
+        builder.setNegativeButton("No", null);
+
+        builder.show();
+    }
+
+    public void createMoviment(final int _id, final String tipus) {
+
+        Cursor cursorProducte = bd.getProducte(_id);
+
+        final Date currentTime = Calendar.getInstance().getTime();
+        final String diatext = currentTime.toString();
+        String codi_producte_curs = "ERROR";
+        Double stockActual_curs = 9999999.0;
+
+
+        if (cursorProducte.moveToFirst())
+        {
+            do
+            {
+                codi_producte_curs = cursorProducte.getString(cursorProducte.getColumnIndexOrThrow(CMDataSource.product_CodiArticle));
+                stockActual_curs = cursorProducte.getDouble(cursorProducte.getColumnIndexOrThrow(CMDataSource.product_Stock));
+
+
+            } while (false);
+        }
+
+        final String codi_producte = codi_producte_curs;
+        final Double stockActual = stockActual_curs;
+
+        // Pedimos confirmación
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        if(tipus.equals("E")){
+            builder.setTitle("ENTRADA DE "+codi_producte);
+            builder.setMessage("Introdueix la quantitat de stock que entra:");
+        } else {
+            builder.setTitle("SORTIDA DE "+codi_producte);
+            builder.setMessage("Introdueix la quantitat de stock que surt:");
+        }
+
+        final EditText input = new EditText(MainActivity.this);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        input.setLayoutParams(lp);
+        builder.setView(input);
+
+        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                String textInput = input.getText().toString();
+                if(isNumeric(textInput)){
+                    int quantitat = Integer.parseInt(textInput);
+                    bd.addMoviment(_id,codi_producte,diatext,quantitat,tipus);
+
+                    if(tipus.equals("E")){
+                        bd.updateProducteStock(_id,stockActual+quantitat);
+                    } else {
+                        bd.updateProducteStock(_id,stockActual-quantitat);
+                    }
+                    myDialogs.showToast(MainActivity.this,"Moviment efectuat amb èxit");
+                    refreshProducts();
+
+
+                } else {
+                    myDialogs.showToast(MainActivity.this,"Moviment amb errors, cancel·lat");
+                }
+            }
+        });
+
+        builder.setNegativeButton("Cancel·lar", null);
+
+        builder.show();
+
+
+
+
+    }
+
+    public boolean isNumeric(String text){
+        try {
+            int num = Integer.parseInt(text);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     /*
@@ -202,8 +354,8 @@ class CMAdapter extends android.widget.SimpleCursorAdapter{
         }
 
         // Capturem botons
-        /*ImageView btnMensage = (ImageView) view.findViewById(R.id.btnDelete);
-        btnMensage.setOnClickListener(new View.OnClickListener() {
+        ImageView btnDelete = (ImageView) view.findViewById(R.id.btnDelete);
+        btnDelete.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 // Busco la ROW
@@ -216,10 +368,51 @@ class CMAdapter extends android.widget.SimpleCursorAdapter{
                 // Carrego la linia del cursor de la posició.
                 Cursor linia = (Cursor) getItem(position);
 
-                oTodoListIcon.deleteTask(linia.getInt(linia.getColumnIndexOrThrow(toDoListDatasource.TODOLIST_ID)));
+                oProductListIcon.deleteProducte(linia.getInt(linia.getColumnIndexOrThrow(CMDataSource.product_ID)));
             }
-        });*/
+        });
+
+        ImageView btnEntrada = (ImageView) view.findViewById(R.id.btnStockIn);
+        btnEntrada.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                // Busco la ROW
+                View row = (View) v.getParent();
+                // Busco el ListView
+                ListView lv = (ListView) row.getParent();
+                // Busco quina posicio ocupa la Row dins de la ListView
+                int position = lv.getPositionForView(row);
+
+                // Carrego la linia del cursor de la posició.
+                Cursor linia = (Cursor) getItem(position);
+
+                oProductListIcon.createMoviment(linia.getInt(linia.getColumnIndexOrThrow(CMDataSource.product_ID)),"E");
+            }
+        });
+
+        ImageView btnSortida = (ImageView) view.findViewById(R.id.btnStockOut);
+        btnSortida.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                // Busco la ROW
+                View row = (View) v.getParent();
+                // Busco el ListView
+                ListView lv = (ListView) row.getParent();
+                // Busco quina posicio ocupa la Row dins de la ListView
+                int position = lv.getPositionForView(row);
+
+                // Carrego la linia del cursor de la posició.
+                Cursor linia = (Cursor) getItem(position);
+
+                oProductListIcon.createMoviment(linia.getInt(linia.getColumnIndexOrThrow(CMDataSource.product_ID)),"S");
+            }
+        });
+
+
+
 
         return view;
     }
+
+
 }

@@ -24,7 +24,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
-                android:text="COD PRODUCTE:" />
+                android:text="COD PRODUCTE:"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtVwCodiProd"
@@ -43,7 +44,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
-                android:text="DIA: " />
+                android:text="DIA: "
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtVwDia"
@@ -61,7 +63,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
-                android:text="QUANTITAT:" />
+                android:text="QUANTITAT:"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtVwQtat"
@@ -82,7 +85,8 @@
         android:text="E"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
 
 </LinearLayout>

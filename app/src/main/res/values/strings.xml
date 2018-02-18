@@ -2,4 +2,7 @@
     <string name="app_name">CatalogManager2</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_product">ProductActivity</string>
+    <string name="title_activity_movements">MovementsActivity</string>
+    <string name="action_movements">Obrir Moviments</string>
+    <string name="home">home</string>
 </resources>

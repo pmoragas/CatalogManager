@@ -77,7 +77,7 @@ public class ProductActivity extends AppCompatActivity {
 
         // Demanem un cursor que retorna un sol registre amb les dades de la tasca
         // Això es podria fer amb un classe pero...
-        Cursor datos = bd.producte(idProduct);
+        Cursor datos = bd.getProducte(idProduct);
         datos.moveToFirst();
 
         // Carreguem les dades en la interfície
