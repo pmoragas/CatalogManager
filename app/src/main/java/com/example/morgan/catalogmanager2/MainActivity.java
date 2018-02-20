@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Paint.Align;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,22 +27,24 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
+
 
 
     private static int ACTIVITY_PRODUCT_ADD = 1;
     private static int ACTIVITY_PRODUCT_UPDATE = 2;
     private static final int ACTIVITY_MOVEMENT_ADD = 3;
 
+    private static final int FILTER_ALL = 1;
+    private static final int FILTER_DESCRIPCIO = 2;
 
     public CMDataSource bd;
-    private long idActual;
+
+    public int filterActual;
+    public String inputFilterDescActual;
+    public long idActual;
 
     private CMAdapter productAdapter;
     private static String[] from = new String[]{CMDataSource.product_CodiArticle,CMDataSource.product_Descripcio,CMDataSource.product_Stock};
@@ -69,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -80,9 +86,49 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            //TREURE FILTRES
+            case R.id.filtre_all:
+                filterActual = FILTER_ALL;
+                refreshProducts();
+                return true;
+
+            //ANAR A ACTIVITY MOVIMENTS STOCK
             case R.id.action_movements:
                 Intent i = new Intent(this, MovementsActivity.class );
                 startActivity(i);
+                return true;
+
+            //POSAR FILTRE PER DESCRIPCIÓ
+            case R.id.filtre_descripcio:
+                // Demanem text
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("FILTRE PER DESCRIPCIÓ");
+
+                LinearLayout layout = new LinearLayout(this);
+                layout.setOrientation(LinearLayout.VERTICAL);
+
+
+                final EditText input_desc = new EditText(this);
+                input_desc.setHint("Descripció Producte: Hamburguesa amb formatge");
+                input_desc.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                layout.addView(input_desc);
+
+                builder.setView(layout);
+
+                //SI CONFIRMA
+                builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        inputFilterDescActual = input_desc.getText().toString();
+                        filterActual = FILTER_DESCRIPCIO;
+                        refreshProducts();
+
+
+                    }
+                });
+
+                builder.setNegativeButton("Cancel·lar", null);
+
+                builder.show();
                 return true;
 
             default:
@@ -119,20 +165,16 @@ public class MainActivity extends AppCompatActivity {
     private void refreshProducts() {
 
         Cursor cursorProducts = null;
-        cursorProducts = bd.ProductList();
 
-        // Demanem les tasques depenen del filtre que s'estigui aplicant
-        /*switch (filterActual) {
+        // FILTREM SEGONS SI HI HA FILTRE
+        switch (filterActual) {
+            case FILTER_DESCRIPCIO:
+                cursorProducts = bd.getProductListByDescription(inputFilterDescActual);
+                break;
             case FILTER_ALL:
-                cursorTasks = bd.toDoList();
+                cursorProducts = bd.ProductList();
                 break;
-            case FILTER_COMPLETED:
-                cursorTasks = bd.toDoListCompleted();
-                break;
-            case FILTER_PENDING:
-                cursorTasks = bd.toDoListPending();
-                break;
-        }*/
+        }
 
 
         // Notifiquem al adapter que les dades han canviat i que refresqui
@@ -140,16 +182,15 @@ public class MainActivity extends AppCompatActivity {
         productAdapter.notifyDataSetChanged();
     }
 
+    //llista els productes a la ListView
     private void loadProductes() {
 
         // Demanem tots els productes
         Cursor cursorTasks = bd.ProductList();
 
-        // Now create a simple cursor adapter and set it to display
         productAdapter = new CMAdapter(this, R.layout.row_producte, cursorTasks, from, to, 1);
         productAdapter.oProductListIcon = this;
 
-        //filterActual = filterKind.FILTER_ALL;
 
         ListView lv = (ListView) findViewById(R.id.lvDades);
         lv.setAdapter(productAdapter);
@@ -168,6 +209,7 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
+    //AFEGIR PRODUCTE
     private void addProducte() {
         // Cridem a l'activity del detall de la tasca enviant com a id -1
         Bundle bundle = new Bundle();
@@ -180,18 +222,8 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(i, ACTIVITY_PRODUCT_ADD);
     }
 
-    private void addMoviment() {
-        // Cridem a l'activity del detall de la tasca enviant com a id -1
-        Bundle bundle = new Bundle();
-        bundle.putLong("id",-1);
 
-        idActual = -1;
-
-        Intent i = new Intent(this, ProductActivity.class );
-        i.putExtras(bundle);
-        startActivityForResult(i,ACTIVITY_MOVEMENT_ADD);
-    }
-
+    //UPDATAR PRODUCTE
     private void updateProducte(long id) {
         // Cridem a l'activity del detall de la tasca enviant l'id de la línia clickada
         Bundle bundle = new Bundle();
@@ -267,6 +299,7 @@ public class MainActivity extends AppCompatActivity {
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
         input.setLayoutParams(lp);
+        input.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         builder.setView(input);
 
         builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {

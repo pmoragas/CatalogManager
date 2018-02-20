@@ -132,11 +132,13 @@ public class MovementsActivity extends AppCompatActivity {
                 // Add a TextView here for the "Title" label, as noted in the comments
                 final EditText input_codi = new EditText(this);
                 input_codi.setHint("Codi Producte: HAM101");
+                input_codi.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                 layout.addView(input_codi); // Notice this is an add method
 
                 // Add another TextView here for the "Description" label
                 final EditText input_dia = new EditText(this);
                 input_dia.setHint("Data Final: 2018-12-31");
+                input_dia.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                 input_dia.setInputType(InputType.TYPE_DATETIME_VARIATION_NORMAL);
                 layout.addView(input_dia); // Another add method
 
@@ -171,12 +173,14 @@ public class MovementsActivity extends AppCompatActivity {
                 // Add a TextView here for the "Title" label, as noted in the comments
                 final EditText input_data_ini = new EditText(this);
                 input_data_ini.setHint("Data Inici: 2018-12-30 23:20:59");
+                input_data_ini.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                 input_data_ini.setInputType(InputType.TYPE_DATETIME_VARIATION_DATE);
                 layout2.addView(input_data_ini); // Notice this is an add method
 
                 // Add another TextView here for the "Description" label
                 final EditText input_data_end = new EditText(this);
                 input_data_end.setHint("Data Final: 2018-12-31 23:20:59");
+                input_data_end.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                 input_data_end.setInputType(InputType.TYPE_DATETIME_VARIATION_NORMAL);
                 layout2.addView(input_data_end); // Another add method
 

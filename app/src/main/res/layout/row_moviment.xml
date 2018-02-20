@@ -22,15 +22,16 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:text="COD PRODUCTE:"
+                android:layout_marginStart="2dp"
+                android:labelFor="@+id/txtVwCodiProd"
+                android:text="@string/codi_producte_upper"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtVwCodiProd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp" />
+                android:layout_marginStart="2dp" />
 
         </LinearLayout>
 
@@ -42,15 +43,16 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:text="DIA: "
+                android:layout_marginStart="2dp"
+                android:labelFor="@+id/txtVwDia"
+                android:text="@string/dia_upper"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtVwDia"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp" />
+                android:layout_marginStart="2dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -61,15 +63,16 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:text="QUANTITAT:"
+                android:layout_marginStart="2dp"
+                android:labelFor="@+id/txtVwQtat"
+                android:text="@string/qty_upper"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtVwQtat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp" />
+                android:layout_marginStart="2dp" />
 
         </LinearLayout>
 
@@ -79,9 +82,9 @@
         android:id="@+id/txtVwIO"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:layout_marginLeft="2dp"
+        android:layout_marginStart="2dp"
         android:gravity="center_vertical|center_horizontal"
-        android:text="E"
+        android:text="@string/blank"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textSize="30sp"

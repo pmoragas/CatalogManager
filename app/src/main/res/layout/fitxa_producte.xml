@@ -12,54 +12,61 @@
     >
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="7dp">
+        android:layout_marginBottom="7dp"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Codi Article" />
+            android:labelFor="@id/edtCodi"
+            android:text="@string/codi_article" />
 
         <EditText
             android:id="@+id/edtCodi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textAlignment="center" />
 
         <TextView
-            android:text="Descripció"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:labelFor="@id/edtDescripcio"
+            android:text="@string/descripcio" />
 
         <EditText
             android:id="@+id/edtDescripcio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textAlignment="center" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="PVP" />
+            android:labelFor="@id/edtPVP"
+            android:text="@string/PVP" />
 
         <EditText
             android:id="@+id/edtPVP"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textAlignment="center" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Stock" />
+            android:labelFor="@id/edtStock"
+            android:text="@string/stock" />
 
         <EditText
             android:id="@+id/edtStock"
@@ -68,28 +75,29 @@
             android:ems="10"
             android:enabled="false"
             android:inputType="text"
-            android:text="0" />
+            android:text="@string/default_zero"
+            android:textAlignment="center" />
 
 
         <Button
-            android:text="ACEPTAR"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/btnOk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:paddingTop="10dp"
-            android:layout_marginTop="30dp"/>
+            android:text="@string/btnAccept" />
 
         <Button
-            android:text="CANCELAR"
+            android:id="@+id/btnCancelar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/btnCancelar" />
+            android:text="@string/btnCancel" />
 
         <Button
-            android:text="ELIMINAR"
+            android:id="@+id/btnDelete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/btnDelete" />
+            android:text="@string/btnRemove" />
     </LinearLayout>
 </RelativeLayout>
 

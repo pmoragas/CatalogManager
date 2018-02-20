@@ -6,4 +6,12 @@
         android:id="@+id/action_movements"
         android:orderInCategory="100"
         android:title="@string/action_movements" />
+    <item
+        android:id="@+id/filtre_descripcio"
+        android:orderInCategory="100"
+        android:title="@string/filtre_descripcio" />
+    <item
+        android:id="@+id/filtre_all"
+        android:orderInCategory="100"
+        android:title="@string/filtre_all" />
 </menu>

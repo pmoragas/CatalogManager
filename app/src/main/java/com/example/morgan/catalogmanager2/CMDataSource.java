@@ -66,6 +66,13 @@ public class CMDataSource {
                 null, null, product_ID);
     }
 
+    public Cursor getProductListByDescription(String description) {
+        // Retornem tots els productes que continguin la descripció
+        return dbR.query(table_PRODUCTES, PRODUCTES_COLUMNS,
+                product_Descripcio+" LIKE ?", new String[] {"%"+String.valueOf(description)+"%"},
+                null, null, product_ID);
+    }
+
     public Cursor MovimentList() {
         // Retornem tots els moviments
         return dbR.query(table_MOVIMENTS, MOVIMENTS_COLUMNS,
