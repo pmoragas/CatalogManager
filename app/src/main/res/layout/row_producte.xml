@@ -23,8 +23,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:text="CODI:" />
+                android:layout_marginStart="2dp"
+                android:text="CODI:"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtVwCodi"
@@ -42,7 +43,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
-                android:text="DESCRIPCIÓ: " />
+                android:text="DESCRIPCIÓ: "
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtVwDescripcio"
@@ -63,7 +65,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
-                android:text="STOCK: " />
+                android:text="STOCK: "
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtVwStock"

@@ -3,7 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.morgan.catalogmanager2.MovementsActivity">
     <item
-        android:id="@+id/home"
+        android:id="@+id/filtre_codi"
         android:orderInCategory="100"
-        android:title="@string/home" />
+        android:title="@string/filtre_codi" />
+    <item
+        android:id="@+id/filtre_data"
+        android:orderInCategory="100"
+        android:title="@string/filtre_data" />
+    <item
+        android:id="@+id/filtre_all"
+        android:orderInCategory="100"
+        android:title="@string/filtre_all" />
+
 </menu>

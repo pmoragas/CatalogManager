@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
@@ -222,19 +223,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void createMoviment(final int _id, final String tipus) {
 
         Cursor cursorProducte = bd.getProducte(_id);
 
-        /*Calendar c = Calendar.getInstance();
-        //System.out.println("Current time => "+c.getTime());
-        SimpleDateFormat df = new SimpleDateFormat("dd-mm-yyyy ss:mm:HH");
-        String formattedDate = df.format(c.getTime());
+        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:MM");
+        final String diatext = sdf.format(new Date());
 
-        final String diatext = formattedDate;*/
-
-        final Date currentTime = Calendar.getInstance(Locale.getDefault()).getTime();
-        final String diatext = currentTime.toString();
 
         String codi_producte_curs = "ERROR";
         Double stockActual_curs = 9999999.0;
@@ -254,7 +251,7 @@ public class MainActivity extends AppCompatActivity {
         final String codi_producte = codi_producte_curs;
         final Double stockActual = stockActual_curs;
 
-        // Pedimos confirmación
+        // Pedimos número
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         if(tipus.equals("E")){
@@ -388,6 +385,7 @@ class CMAdapter extends android.widget.SimpleCursorAdapter{
 
         ImageView btnEntrada = (ImageView) view.findViewById(R.id.btnStockIn);
         btnEntrada.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             public void onClick(View v) {
 
                 // Busco la ROW
@@ -406,6 +404,7 @@ class CMAdapter extends android.widget.SimpleCursorAdapter{
 
         ImageView btnSortida = (ImageView) view.findViewById(R.id.btnStockOut);
         btnSortida.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             public void onClick(View v) {
 
                 // Busco la ROW

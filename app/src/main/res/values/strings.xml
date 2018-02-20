@@ -5,4 +5,7 @@
     <string name="title_activity_movements">MovementsActivity</string>
     <string name="action_movements">Obrir Moviments</string>
     <string name="home">home</string>
+    <string name="filtre_codi">Filtre Codi Producte</string>
+    <string name="filtre_data">Filtre per data</string>
+    <string name="filtre_all">ALL</string>
 </resources>

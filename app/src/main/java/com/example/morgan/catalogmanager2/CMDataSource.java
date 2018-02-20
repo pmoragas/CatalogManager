@@ -73,6 +73,38 @@ public class CMDataSource {
                 null, null, moviment_ID);
     }
 
+    public Cursor getMovimentsByCodiDia(String codi, String dia) {
+        // Retornem els moviments en què el codi conté el paràmetre d'entrada
+        String dia_inici = dia+" 00:00";
+        String dia_fi = dia+" 59:59";
+
+        return dbR.query(table_MOVIMENTS, MOVIMENTS_COLUMNS,
+                moviment_CodiArticle + " LIKE ? AND ("+moviment_dia+" >=? OR "+moviment_dia+ "<=?)", new String[] { "%"+String.valueOf(codi)+"%" ,String.valueOf(dia_inici),String.valueOf(dia_fi)},
+                null, null, moviment_ID);
+    }
+
+    public Cursor getMovimentsByDates(String data_ini, String data_fin) {
+        // Retornem els moviments en què la data es troba entre la data inici i la data de fi
+        if(data_ini.equals("") && data_fin.equals("") ){
+            // Retornem tots els moviments
+            data_ini = "1900-01-01 00:01";
+            data_fin = "2100-01-01 00:01";
+        } else if (data_ini.equals("") && !data_fin.equals("")){
+            //forcem la data més antiga com a inici
+            data_ini = "1900-01-01 00:01";
+
+        } else if(!data_ini.equals("") && data_fin.equals("")){
+            //forcem la data més futurible com a final
+            data_fin = "2100-01-01 00:01";
+
+        }
+
+        return dbR.query(table_MOVIMENTS, MOVIMENTS_COLUMNS,
+                moviment_dia + " >= ? AND "+moviment_dia+" <= ?", new String[] { String.valueOf(data_ini),String.valueOf(data_fin) },
+                null, null, moviment_ID);
+
+    }
+
 
     public Cursor getProducte(long id) {
         // Retorna un cursor només amb el id indicat
