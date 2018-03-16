@@ -46,6 +46,10 @@
         <activity
             android:name=".CitiesActivity"
             android:label="@string/title_activity_cities"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CityDetailsActivity"
+            android:label="@string/title_activity_city_details"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

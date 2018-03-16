@@ -29,4 +29,5 @@
     <string name="filtre_descripcio">Filtrar per Descripció</string>
     <string name="title_activity_initial">InitialActivity</string>
     <string name="title_activity_cities">CitiesActivity</string>
+    <string name="title_activity_city_details">CityDetailsActivity</string>
 </resources>
