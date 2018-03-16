@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.morgan.catalogmanager2.InitialActivity"
+    tools:showIn="@layout/activity_initial">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btnProducts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Productes" />
+
+        <Button
+            android:id="@+id/btnMoviments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Moviments" />
+
+        <Button
+            android:id="@+id/btnCiutats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ciutats" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

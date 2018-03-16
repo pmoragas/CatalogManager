@@ -27,4 +27,5 @@
     <string name="dia_upper">DIA:</string>
     <string name="qty_upper">QUANTITAT:</string>
     <string name="filtre_descripcio">Filtrar per Descripció</string>
+    <string name="title_activity_initial">InitialActivity</string>
 </resources>
