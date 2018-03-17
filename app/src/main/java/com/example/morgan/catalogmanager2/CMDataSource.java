@@ -204,7 +204,7 @@ public class CMDataSource {
         return dbW.insert(table_CIUTATS,null,values);
     }
 
-    public void deletecIUTAT(long id) {
+    public void deleteCiutat(long id) {
         // Eliminem la ciutat amb clau primària "id"
         dbW.delete(table_CIUTATS,ciutat_ID + " = ?", new String[] { String.valueOf(id) });
     }

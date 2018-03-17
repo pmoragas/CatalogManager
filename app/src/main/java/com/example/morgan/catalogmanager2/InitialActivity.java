@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 
 public class InitialActivity extends AppCompatActivity {
+    CMSQLiteHelper db = new CMSQLiteHelper(this);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +19,8 @@ public class InitialActivity extends AppCompatActivity {
         setContentView(R.layout.activity_initial);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
 
         Button btnProductes = (Button) findViewById(R.id.btnProducts);
         Button btnMoviments = (Button) findViewById(R.id.btnMoviments);

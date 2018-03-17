@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        filterActual = FILTER_ALL;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -71,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
 
         bd = new CMDataSource(this);
         loadProductes();
+
+
 
     }
 

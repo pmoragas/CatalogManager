@@ -61,7 +61,7 @@ public class CMSQLiteHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-        if(database_VERSION == 100){
+        if(oldVersion < 101){
             // SQL statement to create Productes table
             String CREATE_MOVIMENTS_TABLE = "CREATE TABLE Moviments ( " +
                     "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -76,7 +76,7 @@ public class CMSQLiteHelper extends SQLiteOpenHelper {
 
         }
 
-        if(database_VERSION == 101){
+        if(oldVersion < 102){
             // SQL statement to create Moviments table
             String CREATE_CIUTATS_TABLE = "CREATE TABLE Ciutats ( " +
                     "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +

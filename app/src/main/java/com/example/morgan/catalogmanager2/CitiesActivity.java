@@ -16,8 +16,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class CitiesActivity extends AppCompatActivity {
 
@@ -31,7 +35,7 @@ public class CitiesActivity extends AppCompatActivity {
 
     private CitiesAdapter citiesAdapter;
     private static String[] from = new String[]{CMDataSource.ciutat_nom};
-    private static int[] to = new int[]{R.id.txtVwNom};
+    private static int[] to = new int[]{R.id.txtVwNomCity};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,28 +48,31 @@ public class CitiesActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                addCiutat();
             }
         });
 
+        setTitle("Ciutats");
 
+        bd = new CMDataSource(this);
+        loadCities();
 
     }
 
 
-    //llista els productes a la ListView
-    private void loadProductes() {
+    //llista les ciutats a la ListView
+    private void loadCities() {
 
         // Demanem tots els productes
-        Cursor cursorTasks = bd.ProductList();
+        Cursor cursorTasks = bd.CiutatsList();
 
-        productAdapter = new CMAdapter(this, R.layout.row_producte, cursorTasks, from, to, 1);
-        productAdapter.oProductListIcon = this;
+        citiesAdapter = new CitiesAdapter(this, R.layout.row_ciutat, cursorTasks, from, to, 1);
+
+        citiesAdapter.oProductListIcon = this;
 
 
-        ListView lv = (ListView) findViewById(R.id.lvDades);
-        lv.setAdapter(productAdapter);
+        ListView lv = (ListView) findViewById(R.id.lvCities);
+        lv.setAdapter(citiesAdapter);
 
         lv.setOnItemClickListener(
                 new AdapterView.OnItemClickListener()
@@ -74,50 +81,67 @@ public class CitiesActivity extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> arg0, View view,
                                             int position, long id) {
 
-                        // modifiquem el id
-                        updateProducte(id);
+                        // anem al detall de la ciutat
+                        // Cridem a l'activity del detall de la tasca enviant l'id de la línia clickada
+                        Bundle bundle = new Bundle();
+                        bundle.putLong("id",id);
+                        TextView txtNom = (TextView) findViewById(R.id.txtVwNomCity);
+                        bundle.putString("nom",txtNom.getText().toString());
+                        idActual = id;
+
+
+                        Intent i = new Intent(CitiesActivity.this, CityDetailsActivity.class );
+                        i.putExtras(bundle);
+                        startActivity(i);
+
                     }
                 }
         );
     }
 
-    //AFEGIR PRODUCTE
-    private void addProducte() {
+    //AFEGIR Ciutat
+    private void addCiutat() {
         // Cridem a l'activity del detall de la tasca enviant com a id -1
-        Bundle bundle = new Bundle();
-        bundle.putLong("id",-1);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Crear Ciutat");
 
-        idActual = -1;
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
 
-        Intent i = new Intent(this, ProductActivity.class );
-        i.putExtras(bundle);
-        startActivityForResult(i, ACTIVITY_PRODUCT_ADD);
+        final EditText input_nom = new EditText(this);
+        input_nom.setHint("Málaga");
+        input_nom.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        layout.addView(input_nom);
+
+        builder.setView(layout);
+
+        //SI CONFIRMA
+        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                bd.addCiutat(input_nom.getText().toString());
+                Toast toast = Toast.makeText(CitiesActivity.this,"Ciutat afegida amb èxit", Toast.LENGTH_SHORT);
+                toast.show();
+                loadCities();
+
+
+            }
+        });
+
+        builder.setNegativeButton("Cancel·lar", null);
+
+        builder.show();
     }
 
 
-    //UPDATAR PRODUCTE
-    private void updateProducte(long id) {
-        // Cridem a l'activity del detall de la tasca enviant l'id de la línia clickada
-        Bundle bundle = new Bundle();
-        bundle.putLong("id",id);
-
-        idActual = id;
-
-
-        Intent i = new Intent(this, ProductActivity.class );
-        i.putExtras(bundle);
-        startActivityForResult(i, ACTIVITY_PRODUCT_UPDATE);
-    }
-
-    public void deleteProducte(final int _id) {
+    public void deleteCiutat(final int _id) {
         // Pedimos confirmación
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        builder.setMessage("Desitja eliminar el producte?");
+        builder.setMessage("Desitja eliminar la ciutat?");
         builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                bd.deleteProducte(_id);
-                refreshProducts();
+                bd.deleteCiutat(_id);
+                //refreshProducts();
             }
         });
 
@@ -130,10 +154,8 @@ public class CitiesActivity extends AppCompatActivity {
 
 class CitiesAdapter extends android.widget.SimpleCursorAdapter{
 
-    private static final String colorProductOutOfStock = "#d78290";
-    private static final String colorProductInStock = "#d7d7d7";
 
-    public  MainActivity oProductListIcon;
+    public  CitiesActivity oProductListIcon;
 
     public CitiesAdapter(Context context, int layout, Cursor c, String[] from, int[] to, int flags) {
         super(context, layout, c, from, to, flags);
@@ -143,77 +165,6 @@ class CitiesAdapter extends android.widget.SimpleCursorAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
 
         View view = super.getView(position, convertView, parent);
-
-        // Agafem l'objecte de la view que es una LINEA DEL CURSOR
-        Cursor linia = (Cursor) getItem(position);
-
-        double stock = linia.getDouble(linia.getColumnIndexOrThrow(CMDataSource.product_Stock));
-
-        // Pintem el fons de la view segons està completada o no
-        if (stock < 0) {
-            view.setBackgroundColor(Color.parseColor(colorProductOutOfStock));
-        }
-        else {
-            view.setBackgroundColor(Color.parseColor(colorProductInStock));
-        }
-
-        // Capturem botons
-        ImageView btnDelete = (ImageView) view.findViewById(R.id.btnDelete);
-        btnDelete.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
-                // Busco la ROW
-                View row = (View) v.getParent();
-                // Busco el ListView
-                ListView lv = (ListView) row.getParent();
-                // Busco quina posicio ocupa la Row dins de la ListView
-                int position = lv.getPositionForView(row);
-
-                // Carrego la linia del cursor de la posició.
-                Cursor linia = (Cursor) getItem(position);
-
-                oProductListIcon.deleteProducte(linia.getInt(linia.getColumnIndexOrThrow(CMDataSource.product_ID)));
-            }
-        });
-
-        ImageView btnEntrada = (ImageView) view.findViewById(R.id.btnStockIn);
-        btnEntrada.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            public void onClick(View v) {
-
-                // Busco la ROW
-                View row = (View) v.getParent();
-                // Busco el ListView
-                ListView lv = (ListView) row.getParent();
-                // Busco quina posicio ocupa la Row dins de la ListView
-                int position = lv.getPositionForView(row);
-
-                // Carrego la linia del cursor de la posició.
-                Cursor linia = (Cursor) getItem(position);
-
-                oProductListIcon.createMoviment(linia.getInt(linia.getColumnIndexOrThrow(CMDataSource.product_ID)),"E");
-            }
-        });
-
-        ImageView btnSortida = (ImageView) view.findViewById(R.id.btnStockOut);
-        btnSortida.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            public void onClick(View v) {
-
-                // Busco la ROW
-                View row = (View) v.getParent();
-                // Busco el ListView
-                ListView lv = (ListView) row.getParent();
-                // Busco quina posicio ocupa la Row dins de la ListView
-                int position = lv.getPositionForView(row);
-
-                // Carrego la linia del cursor de la posició.
-                Cursor linia = (Cursor) getItem(position);
-
-                oProductListIcon.createMoviment(linia.getInt(linia.getColumnIndexOrThrow(CMDataSource.product_ID)),"S");
-            }
-        });
-
 
 
 
