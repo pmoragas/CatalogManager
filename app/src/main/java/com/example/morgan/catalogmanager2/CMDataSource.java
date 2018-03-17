@@ -145,6 +145,13 @@ public class CMDataSource {
                 null, null, ciutat_ID);
     }
 
+    public Cursor getCiutat(long id) {
+        // Retorna un cursor només amb el id indicat
+        return dbR.query(table_CIUTATS, CIUTATS_COLUMNS,
+                ciutat_ID + "=?", new String[]{String.valueOf(id)},
+                null, null, null);
+
+    }
 
 
     /**************DML****************/

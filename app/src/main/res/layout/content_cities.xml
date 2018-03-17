@@ -12,7 +12,7 @@
         android:id="@+id/lvCities"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"
+        android:layout_below="@id/toolbarCityDetails"
         app:layout_anchor="@+id/include"
         app:layout_anchorGravity="right|bottom"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
