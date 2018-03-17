@@ -16,7 +16,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class CMSQLiteHelper extends SQLiteOpenHelper {
 
     // database version
-    private static int database_VERSION = 101;
+    private static int database_VERSION = 102;
     // database name
     private static final String database_NAME = "CatalogManager";
 
@@ -38,7 +38,7 @@ public class CMSQLiteHelper extends SQLiteOpenHelper {
 
         db.execSQL(CREATE_PRODUCT_TABLE);
 
-        // SQL statement to create Productes table
+        // SQL statement to create Moviments table
         String CREATE_MOVIMENTS_TABLE = "CREATE TABLE Moviments ( " +
                 "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "producte_id INTEGER NOT NULL, " +
@@ -50,6 +50,12 @@ public class CMSQLiteHelper extends SQLiteOpenHelper {
 
         db.execSQL(CREATE_MOVIMENTS_TABLE);
 
+        // SQL statement to create Moviments table
+        String CREATE_CIUTATS_TABLE = "CREATE TABLE Ciutats ( " +
+                "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "nom TEXT NOT NULL)";
+
+        db.execSQL(CREATE_CIUTATS_TABLE);
     }
 
     @Override
@@ -68,7 +74,15 @@ public class CMSQLiteHelper extends SQLiteOpenHelper {
 
             db.execSQL(CREATE_MOVIMENTS_TABLE);
 
-            database_VERSION = 101;
+        }
+
+        if(database_VERSION == 101){
+            // SQL statement to create Moviments table
+            String CREATE_CIUTATS_TABLE = "CREATE TABLE Ciutats ( " +
+                    "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "nom TEXT NOT NULL)";
+
+            db.execSQL(CREATE_CIUTATS_TABLE);
         }
 
     }

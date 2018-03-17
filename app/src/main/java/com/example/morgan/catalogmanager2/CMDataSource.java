@@ -29,6 +29,10 @@ public class CMDataSource {
     public static final String moviment_tipus = "tipus";
     public static final String[] MOVIMENTS_COLUMNS = { moviment_ID, moviment_producte_id, moviment_CodiArticle, moviment_dia,moviment_quantitat,moviment_tipus};
 
+    public static final String table_CIUTATS = "Ciutats";
+    public static final String ciutat_ID = "_id";
+    public static final String ciutat_nom = "nom";
+    public static final String[] CIUTATS_COLUMNS = { ciutat_ID, ciutat_nom};
 
 
     private CMSQLiteHelper dbHelper;
@@ -59,6 +63,8 @@ public class CMDataSource {
 
     /**************CURSORS**********/
 
+    /**************productes************/
+
     public Cursor ProductList() {
         // Retornem tots els productes
         return dbR.query(table_PRODUCTES, PRODUCTES_COLUMNS,
@@ -72,6 +78,16 @@ public class CMDataSource {
                 product_Descripcio+" LIKE ?", new String[] {"%"+String.valueOf(description)+"%"},
                 null, null, product_ID);
     }
+
+    public Cursor getProducte(long id) {
+        // Retorna un cursor només amb el id indicat
+        return dbR.query(table_PRODUCTES, PRODUCTES_COLUMNS,
+                product_ID + "=?", new String[]{String.valueOf(id)},
+                null, null, null);
+
+    }
+
+    /**************moviments************/
 
     public Cursor MovimentList() {
         // Retornem tots els moviments
@@ -112,15 +128,6 @@ public class CMDataSource {
 
     }
 
-
-    public Cursor getProducte(long id) {
-        // Retorna un cursor només amb el id indicat
-        return dbR.query(table_PRODUCTES, PRODUCTES_COLUMNS,
-                product_ID + "=?", new String[]{String.valueOf(id)},
-                null, null, null);
-
-    }
-
     public Cursor moviment(long id) {
         // Retorna un cursor només amb el id indicat
         return dbR.query(table_MOVIMENTS, MOVIMENTS_COLUMNS,
@@ -128,6 +135,16 @@ public class CMDataSource {
                 null, null, null);
 
     }
+
+    /**************ciutats************/
+
+    public Cursor CiutatsList() {
+        // Retornem totes les ciutats
+        return dbR.query(table_CIUTATS, CIUTATS_COLUMNS,
+                null, null,
+                null, null, ciutat_ID);
+    }
+
 
 
     /**************DML****************/
@@ -177,5 +194,20 @@ public class CMDataSource {
 
         return dbW.insert(table_MOVIMENTS,null,values);
     }
+
+    public long addCiutat(String nom) {
+        // Creem una nova ciutat i retornem l'id creat per si el necessiten
+        ContentValues values = new ContentValues();
+        values.put(ciutat_nom, nom);
+
+
+        return dbW.insert(table_CIUTATS,null,values);
+    }
+
+    public void deletecIUTAT(long id) {
+        // Eliminem la ciutat amb clau primària "id"
+        dbW.delete(table_CIUTATS,ciutat_ID + " = ?", new String[] { String.valueOf(id) });
+    }
+
 
 }
